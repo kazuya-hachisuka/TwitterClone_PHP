@@ -58,7 +58,7 @@ if (!empty($_POST)) {
 		<dd>
     </dd>
 		</dl>
-		<div><a href="index.php?action=rewrite">&laquo;&nbsp;書き直す</a> | <imput type="submit" value="登録する" /></div>
+		<div><a href="index.php?action=rewrite">&laquo;&nbsp;書き直す</a> | <input type="submit" value="登録する" /></div>
 		</form>
   </div>
 
