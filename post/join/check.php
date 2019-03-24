@@ -9,11 +9,11 @@ if (!isset($_SESSION['join'])) {
 
 if (!empty($_POST)) {
   //登録処理をする
-  $statement = $db->prepare('INSERT INTO member SET name=?, email=?, password=?, picture=?, created=NOW()');
+  $statement = $db->prepare('INSERT INTO members SET name=?, email=?, password=?, picture=?, created=NOW()');
   echo $ret = $statement->execute(array(
     $_SESSION['join']['name'],
     $_SESSION['join']['email'],
-    shal($_SESSION['join']['password']),
+    sha1($_SESSION['join']['password']),
     $_SESSION['join']['image']
   ));
   unset($_SESSION['join']);
@@ -21,7 +21,6 @@ if (!empty($_POST)) {
   header('Location: thanks.php');
   exit();
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="ja">
