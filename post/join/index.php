@@ -15,7 +15,7 @@ if (!empty($_POST)) {
   if ($_POST['password'] == '') {
     $error['password'] = 'blank';
   }
-  $fileName =- $_FILES['image']['name'];
+  $fileName = $_FILES['image']['name'];
   if (!empty($fileName)) {
     $ext = substr($fileName, -3);
     if ($ext != 'jpg' && $ext != 'gif') {
@@ -25,7 +25,7 @@ if (!empty($_POST)) {
   if (empty($error)) {
     //画像をアップロードする
     $image = date('YmdHis') . $_FILES['image']['name'];
-    move_uploaded_file($_FILES['image']['tmp_name'], '../member_picture/' .$image);
+    move_uploaded_file($_FILES['image']['tmp_name'], '../member_picture/' . $image);
     $_SESSION['join'] = $_POST;
     $_SESSION['join']['image'] = $image;
     header('Location: check.php');
@@ -66,13 +66,13 @@ if (!empty($_POST)) {
             <input type="text" name="email" size="35" maxlength="255" value="<?php echo htmlspecialchars($_POST['email'], ENT_QUOTES); ?> " />
             <?php if ($error['email'] == 'blank'): ?>
             <p class="error">* メールアドレスを入力してください</p>
-            <?php endif ?>
+            <?php endif; ?>
           </dd>
           <dt>パスワード<span class="required">必須</span></dt>
           <dd>
             <input type="password" name="password" size="10" maxlength="20" value="<?php echo htmlspecialchars($_POST['password'], ENT_QUOTES); ?> " />
-            <?php if ($errora['password'] == 'blank'): ?>
-            <p class="error"> * パスワードを入力してください</p>
+            <?php if ($error['password'] == 'blank'): ?>
+            <p class="error">* パスワードを入力してください</p>
             <?php endif; ?>
             <?php if ($error['password'] == 'length'): ?>
             <p class="error">* パスワードは4文字以上で入力してください</p>
@@ -81,6 +81,9 @@ if (!empty($_POST)) {
           <dt>写真など</dt>
           <dd>
             <input type="file" name="image" size="35" />
+            <?php if ($error['image'] == 'type'): ?>
+            <p class="error">* 恐れ入りますが、画像を改めて指定してください</p>
+            <?php endif; ?>
           </dd>
         </dl>
         <div>
