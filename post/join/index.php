@@ -14,8 +14,19 @@ if (!empty($_POST)) {
   if ($_POST['password'] == '') {
     $error['password'] = 'blank';
   }
+  $filenName = $_FILES['image']['name'];
+  if (!empty($fileName)) {
+    $ext = substr($fileName, -3);
+    if ($ext != 'jpg' && $ext != 'gif') {
+      $error['image'] = 'type';
+    }
+  }
   if (empty($error)) {
+    //画像をアップロードする
+    $image = date('YmdHis') . $_FILES['image']['name'];
+    move_uploaded_file($_FILES['image']['tem_name'], '../member_picture/' . $image);
     $_SESSION['join'] = $_POST;
+    $_SESSION['join']['image'] = $image;
     header('Location: chack.php');
     exit();
   }
