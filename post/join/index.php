@@ -14,7 +14,7 @@ if (!empty($_POST)) {
   if ($_POST['password'] == '') {
     $error['password'] = 'blank';
   }
-  $filenName = $_FILES['image']['name'];
+  $fileName = $_FILES['image']['name'];
   if (!empty($fileName)) {
     $ext = substr($fileName, -3);
     if ($ext != 'jpg' && $ext != 'gif') {
