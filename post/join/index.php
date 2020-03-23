@@ -24,13 +24,14 @@ if (!empty($_POST)) {
   if (empty($error)) {
     //画像をアップロードする
     $image = date('YmdHis') . $_FILES['image']['name'];
-    move_uploaded_file($_FILES['image']['tem_name'], '../member_picture/' . $image);
+    move_uploaded_file($_FILES['image']['tmp_name'], '../member_picture/' . $image);
     $_SESSION['join'] = $_POST;
     $_SESSION['join']['image'] = $image;
-    header('Location: chack.php');
+    header('Location: check.php');
     exit();
   }
 }
+//htmlspecialcharsを書くのが長いので、作成
 function htmlESC($item){
   return htmlspecialchars($item, ENT_QUOTES);
 }
@@ -49,32 +50,39 @@ function htmlESC($item){
   <form action="" method="post" enctype="multipart/form-data">
     <dl>
       <dt>ニックネーム<span class="required">必須</span></dt>
-        <dd>
-          <input type="text" name="name" size="35" maxlength="255" value="<?php echo htmlESC($_POST['name']); ?>">
-          <?php if ($error['name'] == 'blank'): ?>
-          <p class="error">*ニックネームを入力してください</p>
-          <?php endif; ?>
-        </dd>
+      <dd>
+        <input type="text" name="name" size="35" maxlength="255" value="<?php echo htmlESC($_POST['name']); ?>">
+        <?php if ($error['name'] == 'blank'): ?>
+        <p class="error">*ニックネームを入力してください</p>
+        <?php endif; ?>
+      </dd>
       <dt>メールアドレス<span class="required">必須</span></dt>
-        <dd>
-          <input type="text" name="email" size="35" maxlength="255" value="<?php echo htmlESC($_POST['email']); ?>" >
-          <?php if ($error['email'] == 'blank'): ?>
-            <p class="error">* メールアドレスを入力してください</p>
-          <?php endif; ?>
-        </dd>
+      <dd>
+        <input type="text" name="email" size="35" maxlength="255" value="<?php echo htmlESC($_POST['email']); ?>" >
+        <?php if ($error['email'] == 'blank'): ?>
+          <p class="error">* メールアドレスを入力してください</p>
+        <?php endif; ?>
+      </dd>
       <dt>パスワード<span class="required">必須</span></dt>
-        <dd>
-          <input type="password" name="password" size="10" maxlength="20" value="<?php echo htmlESC($_POST['password']); ?>">
-          <?php if ($error['password'] == 'blank'): ?>
-            <p class="error">* パスワードを入力してください></p>
-          <?php endif; ?>
-          <?php if ($error['password'] == 'length'): ?>
-            <p class="error">* パスワードは4文字以上で入力してください</p>
-          <?php endif; ?>
-        </dd>
-      <dd><input type="password" name="password" size="10" maxlength="20"></dd>
+      <dd>
+        <input type="password" name="password" size="10" maxlength="20" value="<?php echo htmlESC($_POST['password']); ?>">
+        <?php if ($error['password'] == 'blank'): ?>
+          <p class="error">* パスワードを入力してください></p>
+        <?php endif; ?>
+        <?php if ($error['password'] == 'length'): ?>
+          <p class="error">* パスワードは4文字以上で入力してください</p>
+        <?php endif; ?>
+      </dd>
       <dt>写真など</dt>
-      <dd><input type="file" name="image" size="35"></dd>
+      <dd>
+        <input type="file" name="image" size="35">
+        <?php if ($error['image'] == 'type'): ?>
+          <p class="error">* 写真などは「.gif」または「.jpg」の画像を指定してください</p>
+        <?php endif; ?>
+        <?php if (!empty($error)): ?>
+          <p class="error">* 恐れ入りますが、画像を改めて指定してください</p>
+        <?php endif; ?>
+      </dd>
     </dl>
     <div>
       <input type="submit" value="入力内容を確認する">
