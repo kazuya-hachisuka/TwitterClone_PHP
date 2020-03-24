@@ -1,4 +1,6 @@
 <?php
+require_once("function.php");
+
 session_start();
 if (!empty($_POST)) {
   // エラー項目の確認
@@ -30,10 +32,6 @@ if (!empty($_POST)) {
     header('Location: check.php');
     exit();
   }
-}
-//htmlspecialcharsを書くのが長いので、作成
-function htmlESC($item){
-  return htmlspecialchars($item, ENT_QUOTES);
 }
 ?>
 <!DOCTYPE html>
