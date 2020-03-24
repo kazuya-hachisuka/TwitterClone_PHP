@@ -1,7 +1,7 @@
 <?php
+session_start();
 require_once("function.php");
 
-session_start();
 if (!empty($_POST)) {
   // エラー項目の確認
   if ($_POST['name'] == '') {
