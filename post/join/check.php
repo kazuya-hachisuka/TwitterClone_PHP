@@ -23,31 +23,38 @@ if (!empty($_POST)) {
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>ひとこと掲示板</title>
+	<title>会員登録</title>
 	<link rel="stylesheet" href="../style.css" />
 </head>
 <body>
-  <form action="" method="post">
-    <input type="hidden" name="action" value="submit">
-    <dl>
-      <dt>ニックネーム</dt>
-      <dd>
-        <?php echo htmlESC($_SESSION['join']['name']); ?>
-      </dd>
-      <dt>メールアドレス</dt>
-      <dd>
-        <?php echo htmlESC($_SESSION['join']['email']); ?>
-      </dd>
-      <dt>パスワード</dt>
-      <dd>[表示されません]</dd>
-      <dt>写真など</dt>
-      <dd>
-        <img src="../member_picture/<?php echo htmlESC($_SESSION['join']['image']); ?>" width="100" height="100" alt="" >
-      </dd>
-    </dl>
-    <div>
-      <a href="index.php?action=rewrite">&laquo;&nbsp;書き直す</a> | <input type="submit" value="登録する"></div>
-    </div>
-  </form>
+<div id="wrap">
+  <div id="head">
+    <h1>ひとこと掲示板</h1>
+  </div>
+  <div id="content">
+    <form action="" method="post">
+      <input type="hidden" name="action" value="submit">
+      <dl>
+        <dt>ニックネーム</dt>
+        <dd>
+          <?php echo htmlESC($_SESSION['join']['name']); ?>
+        </dd>
+        <dt>メールアドレス</dt>
+        <dd>
+          <?php echo htmlESC($_SESSION['join']['email']); ?>
+        </dd>
+        <dt>パスワード</dt>
+        <dd>[表示されません]</dd>
+        <dt>写真など</dt>
+        <dd>
+          <img src="../member_picture/<?php echo htmlESC($_SESSION['join']['image']); ?>" width="100" height="100" alt="" >
+        </dd>
+      </dl>
+      <div>
+        <a href="index.php?action=rewrite">&laquo;&nbsp;書き直す</a> | <input type="submit" value="登録する"></div>
+      </div>
+    </form>
+  </div>
+</div>
 </body>
 </html>
