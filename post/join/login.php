@@ -10,14 +10,15 @@ if (!empty($_POST)) {
     $login = $db->prepare('SELECT * FROM members WHERE email=? AND password=?');
     $login->execute(array($_POST['email'], sha1($_POST['password'])));
     $member = $login->fetch();
-  }
-  if ($member) {
-    //ログイン成功
-    $_SESSION['id'] = $member['id'];
-    $_SESSION['time'] = time();
-
-    header('Location: index.php');
-    exit();
+      if ($member) {
+        //ログイン成功
+        $_SESSION['id'] = $member['id'];
+        $_SESSION['time'] = time();
+        header('Location: index.php');
+        exit();
+      } else {
+        $error['login'] = 'failed';
+      }
   } else {
     $error['login'] = 'blank';
   }
