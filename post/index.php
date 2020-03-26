@@ -8,7 +8,7 @@ if(isset($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
   $_SESSION['time'] = time();
   $member = $db->prepare('SELECT * FROM members WHERE id=?');
   $member->execute(array($_SESSION['id']));
-  $meber = $member->fetch();
+  $member = $member->fetch();
 } else {
   //ログインしていない
   header('Location: login.php');
@@ -22,7 +22,7 @@ if(isset($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>ひとこと掲示板</title>
-	<link rel="stylesheet" href="./style.css" />
+	<link rel="stylesheet" href="style.css" />
 </head>
 <body>
 <div id="wrap">
