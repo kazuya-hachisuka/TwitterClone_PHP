@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once("function.php");
+require_once("../function.php");
 require('../dbconnect.php');
 
 if (!empty($_POST)) {
