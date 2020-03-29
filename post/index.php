@@ -17,14 +17,21 @@ if(isset($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
 //投稿を記録する
 if (!empty($_POST)) {
   if ($_POST['message'] != '') {
-    $message = $db->prepare('INSERT INTO posts SET member_id=?, message=?, created=NOW()');
-    $message->execute(array($member['id'], $_POST['message']));
+    $message = $db->prepare('INSERT INTO posts SET member_id=?, message=?, replay_post_id=?, created=NOW()');
+    $message->execute(array($member['id'], $_POST['message'], $_POST['replay_post_id']));
     header('Location: index.php');
     exit();
   }
 }
 //投稿を取得する
 $posts = $db->query('SELECT m.name, m.picture, p.* FROM members m, posts p WHERE m.id=p.member_id ORDER BY p.created DESC');
+//投稿機能を取得する
+if (isset($_REQUEST['res'])) {
+  $response = $db->prepare('SELECT m.name, m.picture, p.* FROM members m, posts p WHERE m.id=p.member_id AND p.id=? ORDER BY p.created DESC');
+  $response->execute(array($_REQUEST['res']));
+  $table = $response->fetch();
+  $message = '@' . $table['name'] . ' ' . $table['message'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -45,7 +52,8 @@ $posts = $db->query('SELECT m.name, m.picture, p.* FROM members m, posts p WHERE
       <dl>
         <dt><?php echo htmlESC($member['name']); ?>さん、メッセージをどうぞ</dt>
         <dd>
-          <textarea name="message" cols="50" rows="5"></textarea>
+          <textarea name="message" cols="50" rows="5"><?php echo htmlESC($message); ?></textarea>
+          <input type="hidden" name="replay_post_id" value="<?php echo htmlESC($_REQUEST['res']); ?>" />
         </dd>
       </dl>
       <div>
@@ -55,7 +63,11 @@ $posts = $db->query('SELECT m.name, m.picture, p.* FROM members m, posts p WHERE
     <?php foreach ($posts as $post): ?>
     <div class="msg">
       <img src="member_picture/<?php echo htmlESC($post['picture']); ?>" width="48" height="48" alt="<?php echo htmlESC($post['name']); ?>"/>
-      <p><?php echo htmlESC($post['message']); ?><span class="name">(<?php echo htmlESC($post['name']); ?>)</span></p>
+      <p>
+        <?php echo htmlESC($post['message']); ?>
+        <span class="name">(<?php echo htmlESC($post['name']); ?>)</span>
+        [<a href="index.php?res=<?php echo htmlESC($post['id']); ?>">Re</a>]
+      </p>
       <p class="day"><?php echo htmlESC($post['created']); ?></p>
     </div>
     <?php endforeach; ?>
