@@ -68,7 +68,9 @@ if (isset($_REQUEST['res'])) {
         <span class="name">(<?php echo htmlESC($post['name']); ?>)</span>
         [<a href="index.php?res=<?php echo htmlESC($post['id']); ?>">Re</a>]
       </p>
-      <p class="day"><?php echo htmlESC($post['created']); ?></p>
+      <p class="day">
+        <a href="view.php?id=<?php echo htmlESC($post['id']); ?>"><?php echo htmlESC($post['created']); ?></a>
+      </p>
     </div>
     <?php endforeach; ?>
   </div>
