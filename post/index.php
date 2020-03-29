@@ -73,6 +73,9 @@ if (isset($_REQUEST['res'])) {
         <?php if ($post['replay_post_id'] > 0): ?>
           <a href="view.php?id=<?php echo htmlESC($post['replay_post_id']); ?>">返信元のメッセージ</a>
         <?php endif; ?>
+        <?php if ($_SESSION['id'] == $post['member_id']): ?>
+          [<a href="delete.php?id=<?php echo htmlESC($post['id']); ?>" style="color:#F33;">削除</a>]
+        <?php endif; ?>
       </p>
     </div>
     <?php endforeach; ?>
