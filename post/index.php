@@ -70,6 +70,9 @@ if (isset($_REQUEST['res'])) {
       </p>
       <p class="day">
         <a href="view.php?id=<?php echo htmlESC($post['id']); ?>"><?php echo htmlESC($post['created']); ?></a>
+        <?php if ($post['replay_post_id'] > 0): ?>
+          <a href="view.php?id=<?php echo htmlESC($post['replay_post_id']); ?>">返信元のメッセージ</a>
+        <?php endif; ?>
       </p>
     </div>
     <?php endforeach; ?>
