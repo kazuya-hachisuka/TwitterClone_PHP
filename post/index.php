@@ -64,7 +64,7 @@ if (isset($_REQUEST['res'])) {
     <div class="msg">
       <img src="member_picture/<?php echo htmlESC($post['picture']); ?>" width="48" height="48" alt="<?php echo htmlESC($post['name']); ?>"/>
       <p>
-        <?php echo htmlESC($post['message']); ?>
+        <?php echo makeLink(htmlESC($post['message'])); ?>
         <span class="name">(<?php echo htmlESC($post['name']); ?>)</span>
         [<a href="index.php?res=<?php echo htmlESC($post['id']); ?>">Re</a>]
       </p>
